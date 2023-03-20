@@ -1,0 +1,13 @@
+.grad_back {
+    background-image: linear-gradient(to right, #f30e24 , #ffc008);
+}
+        .time-all-box {
+    margin-inline-start: -80px !important;
+    margin-inline-end: -80px !important;
+}
+@media only screen and (max-width: 600px){
+    .time-all-box {
+        margin-inline-start: -30px !important;
+        margin-inline-end: -30px !important;
+    }
+}
