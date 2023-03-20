@@ -16,7 +16,7 @@
         - Responsive
 
 - ### Screenshot
-  ![Timer Screenshot](https://github.com/LloydTea/Stop-Watch/blob/62a1cc085e68aa4c358dc2cd7f7701191b8d08ec/Timer.jpg)
+  ![Timer Screenshot](https://github.com/LloydTea/Stop-Watch/blob/62a1cc085e68aa4c358dc2cd7f7701191b8d08ec/Calculator.png)
 
 ## Authors
 
