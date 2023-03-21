@@ -1,17 +1,23 @@
-//For Priting All The Number Buttons Included "." and C
+// Initializing "=" Button, Result Input Field, Result Input Label As
 const equal = document.getElementById("equal");
 const result = document.getElementById("result");
 const button_dot = document.getElementById("button_dot");
 const history = document.getElementById("history");
+
+//Add A Function To The Equal Button Using addEventListener
 equal.addEventListener("click", function () {
   document.getElementById("result").innerHTML = calculate();
 });
+
+//Variable Declaration
 var dot = "dot";
 var signActive = false;
 var entry;
 var answer;
 var counter = 0;
 var ArrayCalc = [];
+
+//For Loop To Print All Number Buttons Including Decimal Point and "C"
 for (let i = 0; i < 12; i++) {
   if (i == 10) {
     document.getElementById("numbers").innerHTML +=
@@ -33,17 +39,21 @@ for (let i = 0; i < 12; i++) {
   }
 }
 
+//Number Clicked Function
 const numberClicked = (x) => {
+  //Assigning A Variable To The Input Value
   entry = result.value;
+
+  //Reset Button String
   if (reset_btn.value == "AC") {
     reset_btn.innerHTML = "C";
     reset_btn.value = "C";
   }
-
+  //Number Condition, Sign Condition, Decimal Point Condition
   if (!Number.isInteger(x) && x != "dot") {
     entry = signChecker(signActive, entry, x);
     signActive = true;
-  } else if (entry == 0 && Number.isInteger(x)) {
+  } else if (entry == "0" && Number.isInteger(x)) {
     entry = x;
     signActive = false;
   } else if (x == dot) {
@@ -56,6 +66,7 @@ const numberClicked = (x) => {
   result.value = entry;
 };
 
+//Sign Checker And Update Function
 const signChecker = (x, y, z) => {
   if (x == true) {
     y = y.substring(0, y.length - 3);
@@ -67,7 +78,6 @@ const signChecker = (x, y, z) => {
 //Decimal Point Function
 const deciPoint = (x) => {
   var y = x.substring(x.length - 1);
-  console.log(y);
   if (y == " ") {
     x += "0.";
   } else {
@@ -89,27 +99,40 @@ const reset = () => {
   }
 };
 
+//Calculator Function
 const calculate = () => {
+  //Empty The Arrary
   ArrayCalc = [];
-  ArrayCalc = entry.split(" ");
-  var sign;
-  if (ArrayCalc[ArrayCalc.length - 1] != "") {
-    for (let i = 0; i < ArrayCalc.length; i++) {
-      if (i == 0) {
-        answer = parseFloat(ArrayCalc[i]);
-      } else if (i % 2 == 0) {
-        if (ArrayCalc[i - 1] == "+") {
-          answer += parseFloat(ArrayCalc[i]);
-        } else if (ArrayCalc[i - 1] == "-") {
-          answer -= parseFloat(ArrayCalc[i]);
-        } else if (ArrayCalc[i - 1] == "×") {
-          answer *= parseFloat(ArrayCalc[i]);
-        } else if (ArrayCalc[i - 1] == "÷") {
-          answer /= parseFloat(ArrayCalc[i]);
+  try {
+    ArrayCalc = entry.split(" ");
+    if (ArrayCalc.length > 2 && ArrayCalc[ArrayCalc.length - 1] != "") {
+      console.log(ArrayCalc);
+      for (let i = 0; i < ArrayCalc.length; i++) {
+        if (i == 0) {
+          answer = Number(ArrayCalc[i]);
+        } else if (i % 2 == 0) {
+          // Plus Sign Condition
+          if (ArrayCalc[i - 1] == "+") {
+            answer += Number(ArrayCalc[i]);
+          }
+          //Substract Sign Condition
+          else if (ArrayCalc[i - 1] == "-") {
+            answer -= Number(ArrayCalc[i]);
+          }
+          //Multiply Sign Conditions
+          else if (ArrayCalc[i - 1] == "×") {
+            answer *= Number(ArrayCalc[i]);
+          }
+          //Divide Sign Conditions
+          else if (ArrayCalc[i - 1] == "÷") {
+            answer /= Number(ArrayCalc[i]);
+          }
         }
       }
+      result.value = answer;
+      history.innerHTML = entry;
     }
-    result.value = answer;
-    history.innerHTML = entry;
+  } catch (error) {
+    history.innerHTML = "Error";
   }
 };
