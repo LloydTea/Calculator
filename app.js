@@ -14,7 +14,6 @@ var dot = "dot";
 var signActive = false;
 var entry;
 var answer;
-var counter = 0;
 var ArrayCalc = [];
 
 //For Loop To Print All Number Buttons Including Decimal Point and "C"
@@ -57,8 +56,19 @@ const numberClicked = (x) => {
     entry = x;
     signActive = false;
   } else if (x == dot) {
-    entry = deciPoint(entry);
-    signActive = false;
+    // Only Add Decimal If Value Does No Have A Decimal Point
+    if (!entry.includes(".")) {
+      entry = deciPoint(entry);
+      signActive = false;
+    }
+    //Decimal Point Conditions..
+    else if (entry.includes(".")) {
+      let holder = entry.split(" ");
+      if (holder.split != "" && !holder[holder.length - 1].includes(".")) {
+        entry = deciPoint(entry);
+        signActive = false;
+      }
+    }
   } else {
     entry += x;
     signActive = false;
@@ -88,9 +98,12 @@ const deciPoint = (x) => {
 
 //Reset Calculator By Clearing All Entry
 const reset = () => {
+  //Clear The Array Of Calculation, Reset The Answer To 0, And Clear The Input Value
   ArrayCalc = [];
   answer = 0;
   result.value = 0;
+
+  //Clear The Array Of Calculation
   if (reset_btn.value != "AC") {
     history.innerHTML = "";
   } else {
@@ -133,6 +146,59 @@ const calculate = () => {
       history.innerHTML = entry;
     }
   } catch (error) {
-    history.innerHTML = "Error";
+    history.innerHTML = "Please Enter A Value";
   }
 };
+
+const backSpace = () => {
+  let x = result.value;
+  if (x.slice(x.length - 1, x.length) != " ") {
+    x = x.slice(0, x.length - 1);
+  } else {
+    x = x.slice(0, x.length - 3);
+    signActive = false;
+  }
+  result.value = x;
+};
+
+//Adding Keyboard Controls To Calculator
+const keyUpFunction = (x) => {
+  //if Enter Is Clicked
+  if (x == "Enter") {
+    calculate();
+  }
+  //If Period Is Pressed ON The keyboard
+  else if (x == ".") {
+    numberClicked(dot);
+  }
+  //If Number Is Pressed On The Keyboard
+  else if (Number.isInteger(Number(x))) {
+    x = Number(x);
+    numberClicked(x);
+  }
+  //If Plus Or Minus Is Pressed On The Keyboard
+  else if (x == "+" || x == "-") {
+    numberClicked(x);
+  }
+
+  //If Multiplication, X Or * Is Pressed On The Keyboard
+  else if (x == "×" || x == "*" || x == "x") {
+    numberClicked("×");
+  } else if (x == "/" || x == "÷") {
+    numberClicked("÷");
+  }
+
+  //If Esc Is Pressed On The Keyboard
+  else if (x == "Escape") {
+    reset();
+  }
+
+  //If Backspace Is Pressed On The Keyboard
+  else if (x == "Backspace") {
+    backSpace();
+  }
+};
+
+window.addEventListener("keyup", function (event) {
+  keyUpFunction(event.key);
+});
