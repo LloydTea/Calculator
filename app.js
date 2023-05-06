@@ -74,6 +74,7 @@ const numberClicked = (x) => {
     signActive = false;
   }
   result.value = entry;
+  result.focus();
 };
 
 //Sign Checker And Update Function
