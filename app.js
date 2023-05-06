@@ -1,3 +1,7 @@
+//Copyright Year
+let year = new Date().getFullYear();
+document.getElementById("year").innerHTML = year;
+
 // Initializing "=" Button, Result Input Field, Result Input Label As
 const equal = document.getElementById("equal");
 const result = document.getElementById("result");
