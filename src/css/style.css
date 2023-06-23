@@ -1,7 +1,8 @@
 .grad_back {
     background-image: linear-gradient(to right, #f30e24 , #ffc008);
 }
-        .time-all-box {
+
+.time-all-box {
     margin-inline-start: -80px !important;
     margin-inline-end: -80px !important;
 }

@@ -20,6 +20,16 @@ var entry;
 var answer;
 var ArrayCalc = [];
 
+const checkHistory = () => {
+  if (history.innerHTML == "") {
+    history.style = "display:none";
+  } else {
+    history.style = "display:unset";
+  }
+};
+
+checkHistory();
+
 //For Loop To Print All Number Buttons Including Decimal Point and "C"
 for (let i = 0; i < 12; i++) {
   if (i == 10) {
@@ -111,6 +121,7 @@ const reset = () => {
   //Clear The Array Of Calculation
   if (reset_btn.value != "AC") {
     history.innerHTML = "";
+    checkHistory();
   } else {
     reset_btn.innerHTML = "C";
     reset_btn.value = "C";
@@ -149,9 +160,11 @@ const calculate = () => {
       }
       result.value = answer;
       history.innerHTML = entry;
+      checkHistory();
     }
   } catch (error) {
     history.innerHTML = "Please Enter A Value";
+    checkHistory();
   }
 };
 
